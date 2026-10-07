@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Email to Event — Outlook add-in",
+    "output": "architecture.html",
+    "quality_profile": "showcase",
+    "views": [
+      { "id": "runtime", "label": "Runtime path", "focus": ["worker", "pane", "outlook", "mailbox"], "note": "What happens when you open an email and press the ribbon button." },
+      { "id": "trust", "label": "Trust boundary", "focus": ["pane", "outlook", "mailbox"], "note": "The email body is read and reused entirely inside the Outlook process on your device." },
+      { "id": "supply-chain", "label": "Code supply chain", "focus": ["github", "worker", "officejs", "pane"], "note": "Every byte of pane code comes from the Worker; office.js comes from Microsoft's CDN." }
+    ]
+  },
+  "components": [
+    { "id": "github", "type": "external", "label": "GitHub", "sublabel": "autoMantis/office_events", "pos": [60, 120], "size": [170, 68], "tag": "public source" },
+    { "id": "officejs", "type": "external", "label": "office.js", "sublabel": "appsforoffice.microsoft.com", "pos": [400, 120], "size": [200, 68], "tag": "Microsoft CDN" },
+    { "id": "worker", "type": "cloud", "label": "Cloudflare Worker", "sublabel": "events.jorgemenas.com", "pos": [60, 450], "size": [170, 68], "tag": "static assets only" },
+    { "id": "pane", "type": "frontend", "label": "Email to Event pane", "sublabel": "taskpane.js + parse.js", "pos": [400, 450], "size": [200, 68] },
+    { "id": "outlook", "type": "frontend", "label": "Outlook client", "sublabel": "web or desktop", "pos": [780, 450], "size": [170, 68], "tag": "ReadItem scope" },
+    { "id": "mailbox", "type": "external", "label": "Microsoft 365", "sublabel": "mailbox + calendar", "pos": [1130, 450], "size": [170, 68] }
+  ],
+  "boundaries": [
+    { "kind": "security-group", "label": "Your device — email body never leaves this box", "wraps": ["pane", "outlook"] },
+    { "kind": "region", "label": "Cloudflare zone: jorgemenas.com", "wraps": ["worker"] }
+  ],
+  "connections": [
+    { "id": "deploy", "from": "github", "to": "worker", "label": "wrangler deploy (manual)", "variant": "dashed", "labelDy": 60 },
+    { "id": "serve", "from": "worker", "to": "pane", "label": "HTTPS GET, once per open", "variant": "emphasis" },
+    { "id": "officejs-load", "from": "officejs", "to": "pane", "label": "loads at runtime", "variant": "dashed", "labelDy": 60 },
+    { "id": "read", "from": "outlook", "to": "pane", "label": "item.body.getAsync", "labelDy": -24 },
+    { "id": "write", "from": "pane", "to": "outlook", "label": "displayNewAppointmentForm", "variant": "emphasis", "labelDy": 24 },
+    { "id": "save", "from": "outlook", "to": "mailbox", "label": "you press Save" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "How it works", "items": ["Outlook loads the pane from the Worker over HTTPS", "Office.js hands it the open email's subject and body", "parse.js detects a Teams, Zoom, Meet or Webex link", "Outlook's own appointment form opens prefilled; you Save"] },
+    { "dot": "emerald", "title": "Security", "items": ["No backend, no database, no secrets anywhere", "Email text never crosses the network — in-process only", "Manifest scope is ReadItem: the open message only", "HTTPS, X-Frame-Options DENY, nosniff, HTML-escaped output"] },
+    { "dot": "rose", "title": "Risks", "items": ["Domain or Cloudflare account takeover = code in your mailbox context", "office.js is fetched from Microsoft's CDN at runtime", "Outlook caches the manifest; re-add it after a URL change"] }
+  ]
+}
