@@ -1,0 +1,15 @@
+{
+  "name": "event-addin-outlook",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Outlook add-in: turn the open email into a calendar appointment.",
+  "scripts": {
+    "certs": "office-addin-dev-certs install",
+    "start": "http-server . -p 3000 -S -C \"%USERPROFILE%/.office-addin-dev-certs/localhost.crt\" -K \"%USERPROFILE%/.office-addin-dev-certs/localhost.key\" --cors -c-1",
+    "test": "node test-parse.js"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "office-addin-dev-certs": "^1.13.0"
+  }
+}

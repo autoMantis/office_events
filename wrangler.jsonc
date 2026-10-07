@@ -1,0 +1,17 @@
+// Cloudflare Workers config — plain static site (HTML/CSS/JS, no build step).
+// No "main" key = no Worker code = no per-request billing, static assets unmetered.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "office-events",
+  "compatibility_date": "2026-10-07",
+  "workers_dev": true,
+  "assets": {
+    "directory": "./"
+  },
+  "routes": [
+    { "pattern": "events.jorgemenas.com", "custom_domain": true }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}

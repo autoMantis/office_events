@@ -1,0 +1,8 @@
+node_modules/
+.wrangler/
+.cf-size-check/
+deploy-issues.log
+.dev.vars
+.dev.vars.*
+.env
+.env.*

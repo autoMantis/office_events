@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Email to Event — Outlook add-in</title>
+  <style>
+    body { font: 15px/1.5 "Segoe UI", system-ui, sans-serif; margin: 40px auto; max-width: 640px;
+           padding: 0 16px; color: #201f1e; }
+    h1 { font-size: 22px; }
+    code { background: #f3f2f1; padding: 1px 5px; border-radius: 3px; }
+    ol { padding-left: 20px; }
+    li { margin-bottom: 8px; }
+    a { color: #0f6cbd; }
+  </style>
+</head>
+<body>
+  <h1>Email &rarr; Appointment</h1>
+  <p>Outlook add-in: open an email, press one button, get a prefilled calendar appointment
+     (subject, meeting link, body). You add attendees and save.</p>
+
+  <h2>Install</h2>
+  <ol>
+    <li>Download the manifest: <a href="manifest.xml">manifest.xml</a></li>
+    <li>Outlook on the web / new Outlook: <b>Settings → General → Manage add-ins → My add-ins
+      → Add a custom add-in → Add from file</b> → pick the downloaded file.</li>
+    <li>Classic Outlook desktop: same dialog, reachable from <b>Get Add-ins</b> on the ribbon.</li>
+    <li>Open any email → <b>Email to Event</b> button on the ribbon.</li>
+  </ol>
+
+  <p>Source: <a href="https://github.com/autoMantis/office_events">github.com/autoMantis/office_events</a></p>
+</body>
+</html>

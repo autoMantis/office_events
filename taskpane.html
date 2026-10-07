@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Email to Event</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <script src="parse.js"></script>
+  <style>
+    body { font: 14px/1.4 "Segoe UI", system-ui, sans-serif; margin: 12px; color: #201f1e; }
+    h1 { font-size: 15px; margin: 0 0 10px; }
+    .row { margin-bottom: 10px; }
+    label { display: block; font-size: 12px; color: #605e5c; margin-bottom: 2px; }
+    input, select { width: 100%; box-sizing: border-box; padding: 5px; font: inherit; }
+    .badge { display: inline-block; padding: 2px 7px; border-radius: 10px; font-size: 12px; }
+    .found { background: #dff6dd; }
+    .none { background: #fff4ce; }
+    button { width: 100%; padding: 9px; font: inherit; background: #0f6cbd; color: #fff;
+             border: 0; border-radius: 4px; cursor: pointer; }
+    button:disabled { background: #c8c6c4; cursor: default; }
+    pre { background: #f3f2f1; padding: 8px; max-height: 140px; overflow: auto;
+          white-space: pre-wrap; font-size: 12px; margin: 0; }
+    #status { font-size: 12px; color: #a4262c; min-height: 16px; }
+  </style>
+</head>
+<body>
+  <h1>Email &rarr; Appointment</h1>
+
+  <div class="row"><span id="meeting" class="badge none">reading email…</span></div>
+
+  <div class="row">
+    <label for="subject">Subject</label>
+    <input id="subject" type="text" />
+  </div>
+
+  <div class="row">
+    <label for="location">Location</label>
+    <input id="location" type="text" />
+  </div>
+
+  <div class="row">
+    <label for="start">Start</label>
+    <input id="start" type="datetime-local" />
+  </div>
+
+  <div class="row">
+    <label for="duration">Duration</label>
+    <select id="duration">
+      <option value="15">15 min</option>
+      <option value="30" selected>30 min</option>
+      <option value="45">45 min</option>
+      <option value="60">1 hour</option>
+      <option value="90">1.5 hours</option>
+      <option value="120">2 hours</option>
+    </select>
+  </div>
+
+  <div class="row">
+    <label>Description preview</label>
+    <pre id="preview"></pre>
+  </div>
+
+  <div class="row"><button id="create" disabled>Create appointment</button></div>
+  <div id="status"></div>
+
+  <script src="taskpane.js"></script>
+</body>
+</html>
