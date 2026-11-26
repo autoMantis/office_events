@@ -6,6 +6,13 @@ link and the body already filled in. You add the attendees and press Save.
 **Live at [events.jorgemenas.com](https://events.jorgemenas.com)** — nothing runs on your
 machine, and there is no server to keep awake.
 
+> **Read [DISCLAIMER.md](DISCLAIMER.md) first.** Personal side project, no warranty, no
+> liability, not supported. Fine on your own mailbox on your own machine. **Not** for your
+> company mailbox or a client's, and not for your team until someone qualified has reviewed
+> it and your organisation has approved it. Built with an AI assistant — the prompt is in
+> [PROMPT.md](PROMPT.md), and AI output that reads well is still not evidence that it is
+> correct or safe.
+
 ---
 
 ## Install (about two minutes)
